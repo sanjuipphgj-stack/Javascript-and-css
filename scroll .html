@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript & CSS Help Center</title>
+    <title>Ad Demo Page</title>
     <style>
         * {
             margin: 0;
@@ -11,431 +11,226 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
+            color: white;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
         }
-
-        /* Banner Styles */
-        .banner {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        repeating-linear-gradient(45deg, #1a2a6c 0px, #1a2a6c 10px, #b21f1f 10px, #b21f1f 20px, #fdbb2d 20px, #fdbb2d 30px);
-            background-size: cover;
+        
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .ad-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: all 0.5s ease;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-            position: relative;
-            overflow: hidden;
         }
-
-        .banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        
+        .ad-content {
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+        
+        .ad-content h2 {
+            color: #ffcc00;
+            margin-bottom: 1rem;
+        }
+        
+        .ad-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .ad-image {
             width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-            z-index: 1;
+            max-width: 300px;
+            border-radius: 10px;
+            margin: 1rem 0;
         }
-
-        .banner-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-
-        .banner h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .banner p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        /* Button Styles */
-        .start-ads-btn {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 18px 40px;
-            font-size: 1.4rem;
-            font-weight: bold;
+        
+        .btn {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
             color: white;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
             border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
+            margin-left: 10px;
+        }
+        
+        .counter {
+            font-size: 1rem;
+            margin-top: 1rem;
+            color: #ffcc00;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .pulse {
             animation: pulse 2s infinite;
         }
-
-        .start-ads-btn:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(45deg, #e52e71, #ff8a00);
-        }
-
-        /* Content Sections */
-        .content {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 0.8s ease;
-        }
-
-        .section.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .section h2 {
-            color: #1a2a6c;
-            margin-bottom: 20px;
-            font-size: 2.2rem;
-            border-bottom: 3px solid #fdbb2d;
-            padding-bottom: 10px;
-        }
-
-        .section p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .code-example {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            border-left: 4px solid #fdbb2d;
-        }
-
-        .code-example code {
-            display: block;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .scroll-indicator.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-indicator:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        
         @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 138, 0, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(255, 138, 0, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 138, 0, 0);
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .banner h1 {
-                font-size: 2.5rem;
-            }
-            
-            .banner p {
-                font-size: 1.2rem;
-            }
-            
-            .start-ads-btn {
-                padding: 15px 30px;
-                font-size: 1.2rem;
-            }
-            
-            .section {
-                padding: 25px;
-            }
-            
-            .content {
-                padding: 40px 15px;
-            }
+        
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
-
-        @media (max-width: 480px) {
-            .banner h1 {
+        
+        @media (max-width: 600px) {
+            h1 {
                 font-size: 2rem;
             }
             
-            .banner p {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
                 font-size: 1rem;
-            }
-            
-            .start-ads-btn {
-                padding: 12px 25px;
-                font-size: 1.1rem;
-            }
-            
-            .section h2 {
-                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Banner Section -->
-    <div class="banner">
-        <div class="banner-content">
-            <h1>JavaScript & CSS Help Center</h1>
-            <p>Learn how to create amazing web experiences with our comprehensive guides</p>
-        </div>
-    </div>
-
-    <!-- Start Ads Button -->
-    <button class="start-ads-btn" id="startAdsBtn">Start Ads</button>
-
-    <!-- Content Sections -->
-    <div class="content">
-        <div class="section" id="js-intro">
-            <h2>JavaScript Basics</h2>
-            <p>JavaScript is a versatile programming language that enables interactive web pages. It's an essential part of web development.</p>
-            
-            <div class="code-example">
-                <code>// Simple JavaScript example
-function greetUser(name) {
-    return `Hello, ${name}! Welcome to our website.`;
-}
-
-console.log(greetUser("Alex"));</code>
-            </div>
-            
-            <p>JavaScript can manipulate HTML content, handle events, create animations, and much more.</p>
-        </div>
-
-        <div class="section" id="css-intro">
-            <h2>CSS Fundamentals</h2>
-            <p>CSS (Cascading Style Sheets) is used to style and layout web pages. With CSS, you can control the color, font, spacing, and positioning of elements.</p>
-            
-            <div class="code-example">
-                <code>/* CSS example for styling buttons */
-.btn {
-    background: linear-gradient(45deg, #1a2a6c, #b21f1f);
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}</code>
-            </div>
-            
-            <p>Modern CSS includes features like Flexbox, Grid, animations, and responsive design techniques.</p>
-        </div>
-
-        <div class="section" id="scroll-effects">
-            <h2>Scroll Effects</h2>
-            <p>Scroll effects can enhance user experience by creating engaging animations as users navigate your page.</p>
-            
-            <div class="code-example">
-                <code>// JavaScript for scroll animations
-window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('.section');
-    
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+    <div class="container">
+        <h1>Interactive Ad Demo</h1>
+        <p>This page demonstrates a simulated ad experience. Click the button below to start the ad.</p>
         
-        if (sectionTop < windowHeight * 0.85) {
-            section.classList.add('visible');
-        }
-    });
-});</code>
+        <div class="ad-container" id="adContainer">
+            <p id="adPlaceholder">Ad will appear here after clicking the button</p>
+            <div class="ad-content" id="adContent">
+                <h2>Special Offer!</h2>
+                <p>Get 50% off on our premium subscription. Limited time offer!</p>
+                <img src="https://via.placeholder.com/300x150/4CAF50/FFFFFF?text=Special+Offer" alt="Special Offer" class="ad-image">
+                <p>Don't miss this amazing opportunity. Click below to learn more!</p>
+                <button class="btn btn-secondary">Learn More</button>
+                <div class="counter" id="counter">Ad will close in <span id="countdown">5</span> seconds</div>
             </div>
-            
-            <p>You can create parallax effects, fade-in animations, and more using scroll events in JavaScript combined with CSS transitions.</p>
         </div>
-
-        <div class="section" id="responsive-design">
-            <h2>Responsive Design</h2>
-            <p>Responsive design ensures your website looks great on all devices, from mobile phones to desktop computers.</p>
-            
-            <div class="code-example">
-                <code>/* CSS media queries for responsive design */
-/* Mobile styles */
-.container {
-    padding: 10px;
-}
-
-/* Tablet styles */
-@media (min-width: 768px) {
-    .container {
-        padding: 20px;
-        max-width: 720px;
-        margin: 0 auto;
-    }
-}
-
-/* Desktop styles */
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-    }
-}</code>
-            </div>
-            
-            <p>Using flexible grids, responsive images, and media queries, you can create websites that adapt to any screen size.</p>
+        
+        <button class="btn pulse" id="startAdBtn">Start Ad</button>
+        
+        <div class="footer">
+            <p>This is a demonstration page. No real ads are being displayed.</p>
         </div>
     </div>
-
-    <!-- Scroll to Top Button -->
-    <div class="scroll-indicator" id="scrollToTop">↑</div>
 
     <script>
-        // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Get DOM elements
-            const startAdsBtn = document.getElementById('startAdsBtn');
-            const scrollToTopBtn = document.getElementById('scrollToTop');
-            const sections = document.querySelectorAll('.section');
+            const startAdBtn = document.getElementById('startAdBtn');
+            const adContainer = document.getElementById('adContainer');
+            const adPlaceholder = document.getElementById('adPlaceholder');
+            const adContent = document.getElementById('adContent');
+            const countdownElement = document.getElementById('countdown');
             
-            // Check if elements exist before adding event listeners
-            if (startAdsBtn) {
-                // Start Ads Button Functionality
-                startAdsBtn.addEventListener('click', function() {
-                    alert('Starting ads campaign! This would typically connect to an ad service API.');
-                    
-                    // Visual feedback
-                    const originalText = this.textContent;
-                    const originalBackground = this.style.background;
-                    
-                    this.style.background = 'linear-gradient(45deg, #00c853, #64dd17)';
-                    this.textContent = 'Ads Started!';
-                    
-                    setTimeout(() => {
-                        this.style.background = originalBackground;
-                        this.textContent = originalText;
-                    }, 2000);
-                });
-            }
+            let countdown;
+            let countdownValue = 5;
             
-            if (scrollToTopBtn) {
-                // Scroll to top functionality
-                scrollToTopBtn.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-            
-            // Scroll Animations
-            function handleScroll() {
-                // Show/hide scroll to top button
-                if (scrollToTopBtn) {
-                    if (window.scrollY > 500) {
-                        scrollToTopBtn.classList.add('visible');
-                    } else {
-                        scrollToTopBtn.classList.remove('visible');
-                    }
-                }
+            startAdBtn.addEventListener('click', function() {
+                // Hide placeholder and show ad content
+                adPlaceholder.style.display = 'none';
+                adContent.style.display = 'block';
                 
-                // Animate sections on scroll
-                sections.forEach(section => {
-                    const sectionTop = section.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
+                // Change container style
+                adContainer.style.background = 'rgba(255, 255, 255, 0.15)';
+                adContainer.style.boxShadow = '0 0 20px rgba(255, 204, 0, 0.5)';
+                
+                // Start countdown
+                countdownValue = 5;
+                countdownElement.textContent = countdownValue;
+                
+                clearInterval(countdown);
+                countdown = setInterval(function() {
+                    countdownValue--;
+                    countdownElement.textContent = countdownValue;
                     
-                    if (sectionTop < windowHeight * 0.85) {
-                        section.classList.add('visible');
+                    if (countdownValue <= 0) {
+                        clearInterval(countdown);
+                        resetAd();
                     }
-                });
+                }, 1000);
+                
+                // Disable button during ad
+                startAdBtn.disabled = true;
+                startAdBtn.textContent = 'Ad Playing...';
+                startAdBtn.classList.remove('pulse');
+            });
+            
+            function resetAd() {
+                // Hide ad content and show placeholder
+                adContent.style.display = 'none';
+                adPlaceholder.style.display = 'block';
+                
+                // Reset container style
+                adContainer.style.background = 'rgba(255, 255, 255, 0.1)';
+                adContainer.style.boxShadow = 'none';
+                
+                // Re-enable button
+                startAdBtn.disabled = false;
+                startAdBtn.textContent = 'Start Ad';
+                startAdBtn.classList.add('pulse');
             }
-            
-            // Add scroll event listener
-            window.addEventListener('scroll', handleScroll);
-            
-            // Initial check for elements in view
-            handleScroll();
         });
     </script>
 </body>
