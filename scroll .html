@@ -17,6 +17,7 @@
             color: #333;
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Banner Styles */
@@ -100,7 +101,7 @@
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             padding: 40px;
             margin-bottom: 40px;
@@ -126,6 +127,7 @@
         .section p {
             margin-bottom: 15px;
             font-size: 1.1rem;
+            line-height: 1.7;
         }
 
         .code-example {
@@ -136,11 +138,13 @@
             margin: 20px 0;
             overflow-x: auto;
             font-family: 'Courier New', monospace;
+            border-left: 4px solid #fdbb2d;
         }
 
         .code-example code {
             display: block;
-            white-space: pre;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
         /* Scroll Indicator */
@@ -162,6 +166,7 @@
             z-index: 100;
             opacity: 0;
             visibility: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .scroll-indicator.visible {
@@ -226,6 +231,29 @@
             
             .section {
                 padding: 25px;
+            }
+            
+            .content {
+                padding: 40px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            .banner p {
+                font-size: 1rem;
+            }
+            
+            .start-ads-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -308,4 +336,107 @@ window.addEventListener('scroll', function() {
             <p>You can create parallax effects, fade-in animations, and more using scroll events in JavaScript combined with CSS transitions.</p>
         </div>
 
-        <div class="section" id
+        <div class="section" id="responsive-design">
+            <h2>Responsive Design</h2>
+            <p>Responsive design ensures your website looks great on all devices, from mobile phones to desktop computers.</p>
+            
+            <div class="code-example">
+                <code>/* CSS media queries for responsive design */
+/* Mobile styles */
+.container {
+    padding: 10px;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+    .container {
+        padding: 20px;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}</code>
+            </div>
+            
+            <p>Using flexible grids, responsive images, and media queries, you can create websites that adapt to any screen size.</p>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-indicator" id="scrollToTop">↑</div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const startAdsBtn = document.getElementById('startAdsBtn');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            const sections = document.querySelectorAll('.section');
+            
+            // Check if elements exist before adding event listeners
+            if (startAdsBtn) {
+                // Start Ads Button Functionality
+                startAdsBtn.addEventListener('click', function() {
+                    alert('Starting ads campaign! This would typically connect to an ad service API.');
+                    
+                    // Visual feedback
+                    const originalText = this.textContent;
+                    const originalBackground = this.style.background;
+                    
+                    this.style.background = 'linear-gradient(45deg, #00c853, #64dd17)';
+                    this.textContent = 'Ads Started!';
+                    
+                    setTimeout(() => {
+                        this.style.background = originalBackground;
+                        this.textContent = originalText;
+                    }, 2000);
+                });
+            }
+            
+            if (scrollToTopBtn) {
+                // Scroll to top functionality
+                scrollToTopBtn.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Scroll Animations
+            function handleScroll() {
+                // Show/hide scroll to top button
+                if (scrollToTopBtn) {
+                    if (window.scrollY > 500) {
+                        scrollToTopBtn.classList.add('visible');
+                    } else {
+                        scrollToTopBtn.classList.remove('visible');
+                    }
+                }
+                
+                // Animate sections on scroll
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight * 0.85) {
+                        section.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Initial check for elements in view
+            handleScroll();
+        });
+    </script>
+</body>
+</html>
